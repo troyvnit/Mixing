@@ -38,6 +38,48 @@ Ext.define('Mixing.view.main.Main', {
                 padding: 20,
                 items: [
                     {
+                        xtype: 'combobox',
+                        fieldLabel: 'Select Object',
+                        store: {
+                            type: 'mxObject'
+                        },
+                        displayField: 'Name',
+                        valueField: 'ID',
+                        listeners: {
+                            select: function (combo, record, eOpts) {
+                                var formularStore = Ext.getStore('mxFormular');
+                                formularStore.load({
+                                    params: { objectId: record.get('ID') }
+                                });
+
+                                var substanceStore = Ext.getStore('mxSubstance');
+                                substanceStore.load({
+                                    params: { getAll: false, objectId: record.get('ID') }
+                                });
+                            }
+                        },
+                        width: '100%'
+                    },
+                    {
+                        xtype: 'combobox',
+                        fieldLabel: 'Select Formular',
+                        store: {
+                            type: 'mxFormular'
+                        },
+                        displayField: 'Name',
+                        valueField: 'ID',
+                        queryMode: 'local',
+                        listeners: {
+                            select: function (combo, record, eOpts) {
+                                var formularDetailStore = Ext.getStore('mxFormularDetail');
+                                formularDetailStore.load({
+                                    params: { formularId: record.get('ID') }
+                                });
+                            }
+                        },
+                        width: '100%'
+                    },
+                    {
                         xtype: 'panel',
                         layout: 'hbox',
                         items: [
@@ -46,54 +88,18 @@ Ext.define('Mixing.view.main.Main', {
                                 layout: 'vbox',
                                 items: [
                                     {
-                                        xtype: 'combobox',
-                                        fieldLabel: 'Select Object',
-                                        store: {
-                                            type: 'mxObject'
-                                        },
-                                        displayField: 'Name',
-                                        valueField: 'ID',
-                                        listeners: {
-                                            select: function (combo, record, eOpts) {
-                                                var formualarStore = Ext.getStore('mxFormular');
-                                                formualarStore.load({
-                                                    params: { objectId: record.get('ID') }
-                                                });
-                                            }
-                                        },
-                                        width: '100%'
-                                    },
-                                    {
-                                        xtype: 'combobox',
-                                        fieldLabel: 'Select Formular',
-                                        store: {
-                                            type: 'mxFormular'
-                                        },
-                                        displayField: 'Name',
-                                        valueField: 'ID',
-                                        queryMode: 'local',
-                                        listeners: {
-                                            select: function (combo, record, eOpts) {
-                                                var formualarDetailStore = Ext.getStore('mxFormularDetail');
-                                                formualarDetailStore.load({
-                                                    params: { formularId: record.get('ID') }
-                                                });
-                                            }
-                                        },
-                                        width: '100%'
-                                    },
-                                    {
                                         xtype: 'mx_formularDetail_list',
                                         width: '100%'
                                     }
                                 ],
-                                flex: 6
+                                flex: 16
                             },
                             {
                                 flex: 1
                             },
                             {
-                                flex: 3
+                                xtype: 'mx_substance_list',
+                                flex: 8
                             }
                         ]
                     },

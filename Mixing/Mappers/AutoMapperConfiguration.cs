@@ -41,6 +41,7 @@ namespace Mixing.Mappers
                 Mapper.CreateMap<mx_Formular, MxFormular>();
                 Mapper.CreateMap<mx_FormularDetail, MxFormularDetail>();
                 Mapper.CreateMap<mx_Element, MxElement>();
+                Mapper.CreateMap<mx_Substance, MxSubstance>();
             }
         }
     }

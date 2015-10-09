@@ -13,10 +13,16 @@ Ext.define('Mixing.Application', {
         'MxObject',
         'MxFormular',
         'MxFormularDetail',
-        'MxElement'
+        'MxElement',
+        'MxSubstance',
+        'MxAllSubstance'
     ],
     
     launch: function () {
         // TODO - Launch the application
+        var allSubstanceStore = Ext.getStore('MxAllSubstance');
+        allSubstanceStore.load({
+            params: { getAll: true, objectId: 0 }
+        });
     }
 });

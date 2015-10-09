@@ -6,7 +6,7 @@ Ext.define('Mixing.view.main.MxSubstanceList', {
     xtype: 'mx_substance_list',
 
     requires: [
-        //'Mixing.store.MxSubstance'
+        'Mixing.store.MxSubstance'
     ],
 
     title: Mixing.util.Utilities.mxSetting.get('mxk-Substance'),
@@ -16,35 +16,35 @@ Ext.define('Mixing.view.main.MxSubstanceList', {
     },
 
     columns: [
-        { text: Mixing.util.Utilities.mxSetting.get('mxk-Substance'), dataIndex: 'Substance', flex: 1 },
-        { text: Mixing.util.Utilities.mxSetting.get('mxk-Component') + ' (ppm)', dataIndex: 'Target', editor: 'numberfield', flex: 1 },
+        { text: Mixing.util.Utilities.mxSetting.get('mxk-Substance'), dataIndex: 'Name', flex: 1 },
         {
             xtype: 'actioncolumn',
-            text: 'Troy',
+            text: Mixing.util.Utilities.mxSetting.get('mxk-Component'),
             flex: 1,
             items: [
                 {
-                    text: 'Edit',
+                    icon: 'icons/cog_edit.png',
                     tooltip: 'Edit'
                 }
-            ]
+            ],
+            align: 'center'
         }
     ],
-
-    plugins: {
-        ptype: 'cellediting',
-        clicksToEdit: 1
-    },
 
     tbar: {
         items: [
             {
                 xtype: 'button',
-                text: 'Add',
-                handler: 'createNewSubstance'
+                text: 'Add/Remove',
+                handler: 'addRemoveSubstance'
             }
         ]
     },
+    features: [{
+        ftype: 'grouping',
+        groupHeaderTpl: '{name}',
+        hideGroupedHeader: true
+    }],
 
     listeners: {
         

@@ -72,7 +72,8 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
                         });
                     }
                 }
-            ]
+            ],
+            align: 'center'
         }
     ],
 

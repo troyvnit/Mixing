@@ -80,5 +80,37 @@ namespace Mixing.Controllers
                 return mxElements.Select(Mapper.Map<MxElement>);
             }
         }
+
+        // GET api/mxsubstance
+        [Route("api/mxsubstance")]
+        public IEnumerable<MxSubstance> GetSubstances(bool getAll, int objectId)
+        {
+            using (var _db = new MixingEntities())
+            {
+                if (getAll)
+                {
+                    var mxSubstancesList = _db.mx_Substance.ToList();
+                    var mxSubstances = mxSubstancesList.Select(Mapper.Map<MxSubstance>).ToList();
+                    foreach (var mxSubstance in mxSubstances)
+                    {
+                        var substanceGroup = _db.mx_SubstanceGroup.FirstOrDefault(sg => sg.ID == mxSubstance.SubstanceGroup_Ref);
+                        mxSubstance.SubstanceGroupName = substanceGroup != null ? substanceGroup.Name : string.Empty;
+                    }
+                    return mxSubstances;
+                }
+                else
+                {
+                    var mxSubstanceUsedDefaults = _db.mx_SubstanceUsedDefault.Where(sud => sud.Object_Ref == objectId || sud.Object_Ref == 0).Select(sub => sub.Substance_Ref).ToList();
+                    var mxSubstancesList = _db.mx_Substance.Where(s => mxSubstanceUsedDefaults.Contains(s.ID)).ToList();
+                    var mxSubstances = mxSubstancesList.Select(Mapper.Map<MxSubstance>).ToList();
+                    foreach (var mxSubstance in mxSubstances)
+                    {
+                        var substanceGroup = _db.mx_SubstanceGroup.FirstOrDefault(sg => sg.ID == mxSubstance.SubstanceGroup_Ref);
+                        mxSubstance.SubstanceGroupName = substanceGroup != null ? substanceGroup.Name : string.Empty;
+                    }
+                    return mxSubstances;
+                }
+            }
+        }
     }
 }
