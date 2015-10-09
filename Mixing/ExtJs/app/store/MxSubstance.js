@@ -15,7 +15,5 @@
         }
     },
 
-    sorters: 'Name',
-
-    groupField: 'SubstanceGroupName'
+    sorters: 'Name'
 });

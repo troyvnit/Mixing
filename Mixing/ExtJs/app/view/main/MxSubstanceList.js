@@ -40,11 +40,6 @@ Ext.define('Mixing.view.main.MxSubstanceList', {
             }
         ]
     },
-    features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '{name}',
-        hideGroupedHeader: true
-    }],
 
     listeners: {
         
