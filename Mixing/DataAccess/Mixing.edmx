@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MixingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mx_Element">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SubstanceGroup_Ref" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="AdUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="InfoNote" Type="nvarchar" MaxLength="255" />
+          <Property Name="WarningNote" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mx_ElementGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mx_Formular">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Object_Ref" Type="int" />
+        </EntityType>
+        <EntityType Name="mx_FormularDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Formular_Ref" Type="int" />
+          <Property Name="Element_Ref" Type="int" />
+          <Property Name="TargetValue" Type="int" />
+          <Property Name="MinValue" Type="int" />
+          <Property Name="MaxValue" Type="int" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mx_Object">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mx_Setting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="mx_Substance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SubstanceGroup_Ref" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="AdUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="InfoNote" Type="nvarchar" MaxLength="255" />
+          <Property Name="WarningNote" Type="nvarchar" MaxLength="255" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="mx_SubstanceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Substance_Ref" Type="int" />
+          <Property Name="Element_Ref" Type="int" />
+          <Property Name="Object_Ref" Type="int" />
+          <Property Name="NutritiveValue" Type="float" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsObjectDependence" Type="bit" />
+        </EntityType>
+        <EntityType Name="mx_SubstanceGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mx_SubstanceUsedDefault">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Object_Ref" Type="int" />
+          <Property Name="Substance_Ref" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mx_WebEmbedded">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DomainName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+          <Property Name="LimitDate" Type="datetime" />
+          <Property Name="CountCalculator" Type="int" />
+          <Property Name="LimitCalculator" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <Association Name="mx_Formular_fk_Object_Ref">
+          <End Role="mx_Object" Type="Self.mx_Object" Multiplicity="0..1" />
+          <End Role="mx_Formular" Type="Self.mx_Formular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mx_Object">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mx_Formular">
+              <PropertyRef Name="Object_Ref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MixingModelStoreContainer">
+          <EntitySet Name="mx_Element" EntityType="Self.mx_Element" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_ElementGroup" EntityType="Self.mx_ElementGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_Formular" EntityType="Self.mx_Formular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_FormularDetail" EntityType="Self.mx_FormularDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_Object" EntityType="Self.mx_Object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_Setting" EntityType="Self.mx_Setting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_Substance" EntityType="Self.mx_Substance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_SubstanceDetail" EntityType="Self.mx_SubstanceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_SubstanceGroup" EntityType="Self.mx_SubstanceGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_SubstanceUsedDefault" EntityType="Self.mx_SubstanceUsedDefault" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mx_WebEmbedded" EntityType="Self.mx_WebEmbedded" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="mx_Formular_fk_Object_Ref" Association="Self.mx_Formular_fk_Object_Ref">
+            <End Role="mx_Object" EntitySet="mx_Object" />
+            <End Role="mx_Formular" EntitySet="mx_Formular" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MixingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mx_Element">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SubstanceGroup_Ref" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AdUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InfoNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WarningNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mx_ElementGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mx_Formular">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Object_Ref" Type="Int32" />
+          <NavigationProperty Name="mx_Object" Relationship="Self.mx_Formular_fk_Object_Ref" FromRole="mx_Formular" ToRole="mx_Object" />
+        </EntityType>
+        <EntityType Name="mx_FormularDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Formular_Ref" Type="Int32" />
+          <Property Name="Element_Ref" Type="Int32" />
+          <Property Name="TargetValue" Type="Int32" />
+          <Property Name="MinValue" Type="Int32" />
+          <Property Name="MaxValue" Type="Int32" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mx_Object">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mx_Formular" Relationship="Self.mx_Formular_fk_Object_Ref" FromRole="mx_Object" ToRole="mx_Formular" />
+        </EntityType>
+        <EntityType Name="mx_Setting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mx_Substance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SubstanceGroup_Ref" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AdUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InfoNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WarningNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+        </EntityType>
+        <EntityType Name="mx_SubstanceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Substance_Ref" Type="Int32" />
+          <Property Name="Element_Ref" Type="Int32" />
+          <Property Name="Object_Ref" Type="Int32" />
+          <Property Name="NutritiveValue" Type="Double" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsObjectDependence" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="mx_SubstanceGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mx_SubstanceUsedDefault">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Object_Ref" Type="Int32" />
+          <Property Name="Substance_Ref" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mx_WebEmbedded">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DomainName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="LimitDate" Type="DateTime" Precision="3" />
+          <Property Name="CountCalculator" Type="Int32" />
+          <Property Name="LimitCalculator" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <Association Name="mx_Formular_fk_Object_Ref">
+          <End Role="mx_Object" Type="Self.mx_Object" Multiplicity="0..1" />
+          <End Role="mx_Formular" Type="Self.mx_Formular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mx_Object">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mx_Formular">
+              <PropertyRef Name="Object_Ref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MixingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mx_Element" EntityType="Self.mx_Element" />
+          <EntitySet Name="mx_ElementGroup" EntityType="Self.mx_ElementGroup" />
+          <EntitySet Name="mx_Formular" EntityType="Self.mx_Formular" />
+          <EntitySet Name="mx_FormularDetail" EntityType="Self.mx_FormularDetail" />
+          <EntitySet Name="mx_Object" EntityType="Self.mx_Object" />
+          <EntitySet Name="mx_Setting" EntityType="Self.mx_Setting" />
+          <EntitySet Name="mx_Substance" EntityType="Self.mx_Substance" />
+          <EntitySet Name="mx_SubstanceDetail" EntityType="Self.mx_SubstanceDetail" />
+          <EntitySet Name="mx_SubstanceGroup" EntityType="Self.mx_SubstanceGroup" />
+          <EntitySet Name="mx_SubstanceUsedDefault" EntityType="Self.mx_SubstanceUsedDefault" />
+          <EntitySet Name="mx_WebEmbedded" EntityType="Self.mx_WebEmbedded" />
+          <AssociationSet Name="mx_Formular_fk_Object_Ref" Association="Self.mx_Formular_fk_Object_Ref">
+            <End Role="mx_Object" EntitySet="mx_Object" />
+            <End Role="mx_Formular" EntitySet="mx_Formular" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MixingModelStoreContainer" CdmEntityContainer="MixingEntities">
+          <EntitySetMapping Name="mx_Element">
+            <EntityTypeMapping TypeName="MixingModel.mx_Element">
+              <MappingFragment StoreEntitySet="mx_Element">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="SubstanceGroup_Ref" ColumnName="SubstanceGroup_Ref" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="AdUrl" ColumnName="AdUrl" />
+                <ScalarProperty Name="InfoNote" ColumnName="InfoNote" />
+                <ScalarProperty Name="WarningNote" ColumnName="WarningNote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_ElementGroup">
+            <EntityTypeMapping TypeName="MixingModel.mx_ElementGroup">
+              <MappingFragment StoreEntitySet="mx_ElementGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_Formular">
+            <EntityTypeMapping TypeName="MixingModel.mx_Formular">
+              <MappingFragment StoreEntitySet="mx_Formular">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Object_Ref" ColumnName="Object_Ref" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_FormularDetail">
+            <EntityTypeMapping TypeName="MixingModel.mx_FormularDetail">
+              <MappingFragment StoreEntitySet="mx_FormularDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Formular_Ref" ColumnName="Formular_Ref" />
+                <ScalarProperty Name="Element_Ref" ColumnName="Element_Ref" />
+                <ScalarProperty Name="TargetValue" ColumnName="TargetValue" />
+                <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+                <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_Object">
+            <EntityTypeMapping TypeName="MixingModel.mx_Object">
+              <MappingFragment StoreEntitySet="mx_Object">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_Setting">
+            <EntityTypeMapping TypeName="MixingModel.mx_Setting">
+              <MappingFragment StoreEntitySet="mx_Setting">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_Substance">
+            <EntityTypeMapping TypeName="MixingModel.mx_Substance">
+              <MappingFragment StoreEntitySet="mx_Substance">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="SubstanceGroup_Ref" ColumnName="SubstanceGroup_Ref" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="AdUrl" ColumnName="AdUrl" />
+                <ScalarProperty Name="InfoNote" ColumnName="InfoNote" />
+                <ScalarProperty Name="WarningNote" ColumnName="WarningNote" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_SubstanceDetail">
+            <EntityTypeMapping TypeName="MixingModel.mx_SubstanceDetail">
+              <MappingFragment StoreEntitySet="mx_SubstanceDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Substance_Ref" ColumnName="Substance_Ref" />
+                <ScalarProperty Name="Element_Ref" ColumnName="Element_Ref" />
+                <ScalarProperty Name="Object_Ref" ColumnName="Object_Ref" />
+                <ScalarProperty Name="NutritiveValue" ColumnName="NutritiveValue" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="IsObjectDependence" ColumnName="IsObjectDependence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_SubstanceGroup">
+            <EntityTypeMapping TypeName="MixingModel.mx_SubstanceGroup">
+              <MappingFragment StoreEntitySet="mx_SubstanceGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_SubstanceUsedDefault">
+            <EntityTypeMapping TypeName="MixingModel.mx_SubstanceUsedDefault">
+              <MappingFragment StoreEntitySet="mx_SubstanceUsedDefault">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Object_Ref" ColumnName="Object_Ref" />
+                <ScalarProperty Name="Substance_Ref" ColumnName="Substance_Ref" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mx_WebEmbedded">
+            <EntityTypeMapping TypeName="MixingModel.mx_WebEmbedded">
+              <MappingFragment StoreEntitySet="mx_WebEmbedded">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DomainName" ColumnName="DomainName" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="LimitDate" ColumnName="LimitDate" />
+                <ScalarProperty Name="CountCalculator" ColumnName="CountCalculator" />
+                <ScalarProperty Name="LimitCalculator" ColumnName="LimitCalculator" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
