@@ -12,7 +12,8 @@
         url: 'http://localhost:10387/api/mxsubstance',
         reader: {
             type: 'json'
-        }
+        },
+        timeout: 1000000
     },
 
     sorters: 'Name',

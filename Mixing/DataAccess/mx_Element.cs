@@ -14,14 +14,27 @@ namespace Mixing.DataAccess
     
     public partial class mx_Element
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public mx_Element()
+        {
+            this.mx_SubstanceDetail = new HashSet<mx_SubstanceDetail>();
+            this.mx_FormularDetail = new HashSet<mx_FormularDetail>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string FullName { get; set; }
-        public Nullable<int> SubstanceGroup_Ref { get; set; }
+        public Nullable<int> ElementGroup_Ref { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public string AdUrl { get; set; }
         public string InfoNote { get; set; }
         public string WarningNote { get; set; }
+    
+        public virtual mx_ElementGroup mx_ElementGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mx_SubstanceDetail> mx_SubstanceDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mx_FormularDetail> mx_FormularDetail { get; set; }
     }
 }

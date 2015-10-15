@@ -6,6 +6,7 @@
         { name: 'Name', type: 'string' },
         { name: 'FullName', type: 'string' },
         { name: 'SubstanceGroupName', type: 'string'},
-        { name: 'ImageUrl', type: 'string' }
+        { name: 'ImageUrl', type: 'string' },
+        { name: 'MxSubstanceDetails', type: 'auto' }
     ]
 });

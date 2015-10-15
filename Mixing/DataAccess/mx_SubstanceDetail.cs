@@ -21,5 +21,8 @@ namespace Mixing.DataAccess
         public Nullable<double> NutritiveValue { get; set; }
         public string Unit { get; set; }
         public Nullable<bool> IsObjectDependence { get; set; }
+    
+        public virtual mx_Substance mx_Substance { get; set; }
+        public virtual mx_Element mx_Element { get; set; }
     }
 }

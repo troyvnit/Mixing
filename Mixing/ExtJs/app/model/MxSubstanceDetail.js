@@ -1,10 +1,10 @@
-﻿Ext.define('Mixing.model.MxFormularDetail', {
+﻿Ext.define('Mixing.model.MxSubstanceDetail', {
     extend: 'Ext.data.Model',
 
     fields: [
+        { name: 'ID', type: 'int' },
         { name: 'ElementId', type: 'int' },
         { name: 'Element', type: 'string' },
-        { name: 'Target', type: 'int' },
-        { name: 'Result', type: 'int' }
+        { name: 'NutritiveValue', type: 'float' }
     ]
 });

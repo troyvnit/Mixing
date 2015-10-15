@@ -10,15 +10,13 @@
 namespace Mixing.DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class mx_SubstanceUsedDefault
+    public partial class sp_helpdiagrams_Result
     {
+        public string Database { get; set; }
+        public string Name { get; set; }
         public int ID { get; set; }
-        public Nullable<int> Object_Ref { get; set; }
-        public Nullable<int> Substance_Ref { get; set; }
-        public string Description { get; set; }
-    
-        public virtual mx_Substance mx_Substance { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

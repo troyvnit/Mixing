@@ -14,7 +14,16 @@ namespace Mixing.DataAccess
     
     public partial class mx_ElementGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public mx_ElementGroup()
+        {
+            this.mx_Element = new HashSet<mx_Element>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mx_Element> mx_Element { get; set; }
     }
 }

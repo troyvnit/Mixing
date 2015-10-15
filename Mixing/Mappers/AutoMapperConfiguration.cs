@@ -39,9 +39,17 @@ namespace Mixing.Mappers
             {
                 Mapper.CreateMap<mx_Object, MxObject>();
                 Mapper.CreateMap<mx_Formular, MxFormular>();
-                Mapper.CreateMap<mx_FormularDetail, MxFormularDetail>();
+                Mapper.CreateMap<mx_FormularDetail, MxFormularDetail>()
+                    .ForMember(s => s.ElementId, o => o.MapFrom(d => d.mx_Element.ID))
+                    .ForMember(s => s.Element, o => o.MapFrom(d => d.mx_Element.Name))
+                    .ForMember(s => s.Target, o => o.MapFrom(d => d.TargetValue.Value));
                 Mapper.CreateMap<mx_Element, MxElement>();
-                Mapper.CreateMap<mx_Substance, MxSubstance>();
+                Mapper.CreateMap<mx_Substance, MxSubstance>()
+                    .ForMember(s => s.SubstanceGroupName, o => o.MapFrom(d => d.mx_SubstanceGroup.Name))
+                    .ForMember(s => s.MxSubstanceDetails, o => o.MapFrom(d => d.mx_SubstanceDetail));
+                Mapper.CreateMap<mx_SubstanceDetail, MxSubstanceDetail>()
+                    .ForMember(s => s.Element, o => o.MapFrom(d => d.mx_Element.Name))
+                    .ForMember(s => s.ElementId, o => o.MapFrom(d => d.mx_Element.ID));
             }
         }
     }

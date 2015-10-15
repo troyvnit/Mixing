@@ -4,11 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="37246962727d45c394ef459d91ba9024" Name="Diagram1">
-        <EntityTypeShape EntityType="MixingModel.mx_Element" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="37246962727d45c394ef459d91ba9024" Name="Diagram1" ZoomLevel="87">
         <EntityTypeShape EntityType="MixingModel.mx_ElementGroup" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MixingModel.mx_Formular" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MixingModel.mx_FormularDetail" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MixingModel.mx_Object" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MixingModel.mx_Setting" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MixingModel.mx_Substance" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
@@ -17,6 +15,16 @@
         <EntityTypeShape EntityType="MixingModel.mx_SubstanceUsedDefault" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MixingModel.mx_WebEmbedded" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="MixingModel.mx_Formular_fk_Object_Ref" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MixingModel.sysdiagram" Width="1.5" PointX="7.375" PointY="8.75" />
+        <AssociationConnector Association="MixingModel.FK_mx_Substance_mx_SubstanceGroup" />
+        <AssociationConnector Association="MixingModel.FK_mx_SubstanceDetail_mx_Substance" />
+        <AssociationConnector Association="MixingModel.FK_mx_SubstanceUsedDefault_mx_Substance" />
+        <EntityTypeShape EntityType="MixingModel.mx_Element" Width="1.5" PointX="5" PointY="11.875" />
+        <AssociationConnector Association="MixingModel.FK_mx_Element_mx_ElementGroup" />
+        <AssociationConnector Association="MixingModel.FK_mx_SubstanceDetail_mx_Element" />
+        <EntityTypeShape EntityType="MixingModel.mx_FormularDetail" Width="1.5" PointX="9.25" PointY="4.625" />
+        <AssociationConnector Association="MixingModel.FK_mx_FormularDetail_mx_Element" />
+        <AssociationConnector Association="MixingModel.FK_mx_FormularDetail_mx_Formular" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

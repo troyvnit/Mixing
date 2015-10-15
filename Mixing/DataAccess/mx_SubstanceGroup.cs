@@ -14,7 +14,16 @@ namespace Mixing.DataAccess
     
     public partial class mx_SubstanceGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public mx_SubstanceGroup()
+        {
+            this.mx_Substance = new HashSet<mx_Substance>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mx_Substance> mx_Substance { get; set; }
     }
 }

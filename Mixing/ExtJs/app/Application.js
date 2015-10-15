@@ -13,8 +13,11 @@ Ext.define('Mixing.Application', {
         'MxObject',
         'MxFormular',
         'MxFormularDetail',
+        'MxFormularDetailResult',
         'MxElement',
         'MxSubstance',
+        'MxSubstanceResult',
+        'MxSubstanceDetail',
         'MxAllSubstance'
     ],
     
@@ -24,5 +27,8 @@ Ext.define('Mixing.Application', {
         allSubstanceStore.load({
             params: { getAll: true, objectId: 0 }
         });
+
+        var elementStore = Ext.getStore('MxElement');
+        elementStore.load();
     }
 });

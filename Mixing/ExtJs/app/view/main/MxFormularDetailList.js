@@ -4,6 +4,7 @@
 Ext.define('Mixing.view.main.MxFormularDetailList', {
     extend: 'Ext.grid.Panel',
     xtype: 'mx_formularDetail_list',
+    id: 'mxFormularDetailGrid',
 
     requires: [
         'Mixing.store.MxFormularDetail',
@@ -18,42 +19,46 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
 
     columns: [
         {
-            text: Mixing.util.Utilities.mxSetting.get('mxk-Element'), dataIndex: 'Element',
+            text: Mixing.util.Utilities.mxSetting.get('mxk-Element'), dataIndex: 'Element', allowBlank: false,
             editor: {
                 xtype: 'combobox',
+                queryMode: 'local',
                 store: {
-                    type: 'mxElement',
-                    listeners: {
-                    }
+                    type: 'mxElement'
                 },
                 displayField: 'Name',
-                valueField: 'ID',
+                valueField: 'Name',
                 listeners: {
+                    beforerender: function(combo){
+                        combo.store.load();
+                    },
                     beforequery: function (queryEvent) {
+                        var grid = queryEvent.combo.ownerCt.context.grid;
+                        var gridRecord = grid.getSelectionModel().getSelection()[0];
                         var formularDetailStore = Ext.getStore('mxFormularDetail');
-                        queryEvent.combo.store.filterBy(function (record) {
-                            return formularDetailStore.findExact('ID', record.get('ID')) == -1;
-                        });
-                        if (queryEvent.combo.store.data.items.length == 0) {
-                            Ext.Msg.alert('No record', 'You already added all of elements, no more to add!', function () {
-                                var grid = queryEvent.combo.ownerCt.context.grid;
-                                var gridRecord = grid.getSelectionModel().getSelection()[0];
-                                grid.getStore().remove(gridRecord);
+                        var filterStore = function () {
+                            queryEvent.combo.store.clearFilter();
+                            queryEvent.combo.store.filterBy(function (record) {
+                                return formularDetailStore.findExact('ElementId', record.get('ID')) == -1 || record.get('ID') == gridRecord.get('ElementId');
                             });
+                            if (queryEvent.combo.store.data.items.length == 0) {
+                                Ext.Msg.alert('No record', 'You already added all of elements, no more to add!', function () {
+                                    grid.getStore().remove(gridRecord);
+                                });
+                            }
+                        }
+                        if (!queryEvent.combo.store.complete) {
+                            queryEvent.combo.store.load(filterStore);
+                        } else {
+                            filterStore();
                         }
                     },
                     select: function (combo, record) {
+                        var grid = combo.ownerCt.context.grid;
                         var gridRecord = combo.ownerCt.context.grid.getSelectionModel().getSelection()[0];
-                        gridRecord.set('ID', record.get('ID'));
+                        gridRecord.set('ElementId', record.get('ID'));
                     }
                 }
-            }, renderer: function (value, metaData, re) {
-                var elementStore = Ext.getStore('MxElement')
-                if (parseInt(value)) {
-                    var record = elementStore.findRecord('ID', parseInt(value));
-                    return record ? record.get('Name') : '';
-                }
-                return value;
             }, flex: 1
         },
         { text: Mixing.util.Utilities.mxSetting.get('mxk-Target') + ' (ppm)', dataIndex: 'Target', editor: 'numberfield', flex: 1 },
@@ -81,8 +86,8 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
         ptype: 'cellediting',
         clicksToEdit: 1,
         listeners: {
-            beforeedit: function (editor, context) {
-                return context.field !== 'Element' || !context.value;
+            edit: function (editor, context) {
+                context.record.commit();
             }
         }
     },
@@ -91,7 +96,7 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
         items: [
             {
                 xtype: 'button',
-                text: 'New',
+                text: 'Add',
                 handler: 'createNewFormularDetail'
             }
         ]

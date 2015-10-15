@@ -39,7 +39,7 @@ namespace Mixing.Controllers
 
         // GET api/mxformular/getbyobject
         [Route("api/mxformular/getbyobject")]
-        public IEnumerable<MxFormular> GetByObject(int objectId)
+        public IEnumerable<MxFormular> GetFormularByObject(int objectId)
         {
             using (var _db = new MixingEntities())
             {
@@ -50,23 +50,12 @@ namespace Mixing.Controllers
 
         // GET api/mxformular/getdetail
         [Route("api/mxformular/getdetail")]
-        public IEnumerable<MxFormularDetail> GetDetail(int formularId)
+        public IEnumerable<MxFormularDetail> GetFormularDetail(int formularId)
         {
             using (var _db = new MixingEntities())
             {
-                var result = new List<MxFormularDetail>();
                 var mxFormularDetails = _db.mx_FormularDetail.Where(f => f.Formular_Ref == formularId).ToList();
-                foreach(var mxFormularDetail in mxFormularDetails)
-                {
-                    var element = _db.mx_Element.FirstOrDefault(e => e.ID == mxFormularDetail.Element_Ref);
-                    result.Add(new MxFormularDetail
-                    {
-                        ID = mxFormularDetail.Element_Ref.Value,
-                        Element = element.Name,
-                        Target = mxFormularDetail.TargetValue.Value
-                    });
-                }
-                return result;
+                return mxFormularDetails.Select(Mapper.Map<MxFormularDetail>).ToList();
             }
         }
 
@@ -87,30 +76,53 @@ namespace Mixing.Controllers
         {
             using (var _db = new MixingEntities())
             {
+                var mxSubstancesList = new List<mx_Substance>();
+
                 if (getAll)
                 {
-                    var mxSubstancesList = _db.mx_Substance.ToList();
-                    var mxSubstances = mxSubstancesList.Select(Mapper.Map<MxSubstance>).ToList();
-                    foreach (var mxSubstance in mxSubstances)
-                    {
-                        var substanceGroup = _db.mx_SubstanceGroup.FirstOrDefault(sg => sg.ID == mxSubstance.SubstanceGroup_Ref);
-                        mxSubstance.SubstanceGroupName = substanceGroup != null ? substanceGroup.Name : string.Empty;
-                    }
-                    return mxSubstances;
+                    mxSubstancesList = _db.mx_Substance.ToList();
                 }
                 else
                 {
                     var mxSubstanceUsedDefaults = _db.mx_SubstanceUsedDefault.Where(sud => sud.Object_Ref == objectId || sud.Object_Ref == 0).Select(sub => sub.Substance_Ref).ToList();
-                    var mxSubstancesList = _db.mx_Substance.Where(s => mxSubstanceUsedDefaults.Contains(s.ID)).ToList();
-                    var mxSubstances = mxSubstancesList.Select(Mapper.Map<MxSubstance>).ToList();
-                    foreach (var mxSubstance in mxSubstances)
-                    {
-                        var substanceGroup = _db.mx_SubstanceGroup.FirstOrDefault(sg => sg.ID == mxSubstance.SubstanceGroup_Ref);
-                        mxSubstance.SubstanceGroupName = substanceGroup != null ? substanceGroup.Name : string.Empty;
-                    }
-                    return mxSubstances;
+                    mxSubstancesList = _db.mx_Substance.Where(s => mxSubstanceUsedDefaults.Contains(s.ID)).ToList();
                 }
+
+                var mxSubstances = mxSubstancesList.Select(Mapper.Map<MxSubstance>).ToList();
+                return mxSubstances;
             }
+        }
+
+        // POST api/calculate
+        [HttpPost]
+        [Route("api/calculate")]
+        public CalculateRs Calculate(CalculateRq rq)
+        {
+            var rs = new CalculateRs();
+            rs.FormularDetails = rq.FormularDetails;
+            foreach(var formularDetail in rs.FormularDetails)
+            {
+                formularDetail.Result = formularDetail.Target + 1;
+                formularDetail.PercentError = formularDetail.Target - 1;
+            }
+
+            rs.Substances = rq.Substances;
+            foreach (var substance in rs.Substances)
+            {
+                substance.Volume = DateTime.Now.Millisecond;
+                substance.Price = DateTime.Now.Millisecond - 5;
+                substance.Cost = DateTime.Now.Millisecond - 10;
+                substance.ImageUrl = "http://nonghoc.com/Images/logo_slogan.png";
+                substance.AdUrl = "http://nonghoc.com";
+                substance.InfoNote = "Info will display here";
+                substance.WarningNote = "Warning will display here";
+            }
+
+            rs.Volume = rq.Volume;
+            rs.EC = 2.3f;
+            rs.TotalCost = 12345;
+
+            return rs;
         }
     }
 }

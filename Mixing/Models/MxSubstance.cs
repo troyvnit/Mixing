@@ -7,6 +7,10 @@ namespace Mixing.Models
 {
     public class MxSubstance
     {
+        public MxSubstance()
+        {
+            MxSubstanceDetails = new List<MxSubstanceDetail>();
+        }
         public int ID { get; set; }
         public string Name { get; set; }
         public string FullName { get; set; }
@@ -18,5 +22,8 @@ namespace Mixing.Models
         public string InfoNote { get; set; }
         public string WarningNote { get; set; }
         public Nullable<int> Price { get; set; }
+        public Nullable<int> Cost { get; set; }
+        public Nullable<int> Volume { get; set; }
+        public ICollection<MxSubstanceDetail> MxSubstanceDetails { get; set; }
     }
 }
