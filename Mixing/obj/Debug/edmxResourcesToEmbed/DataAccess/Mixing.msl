@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MixingModelStoreContainer" CdmEntityContainer="MixingEntities">
+    <EntitySetMapping Name="mx_ElementGroup">
+      <EntityTypeMapping TypeName="MixingModel.mx_ElementGroup">
+        <MappingFragment StoreEntitySet="mx_ElementGroup">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_Formular">
+      <EntityTypeMapping TypeName="MixingModel.mx_Formular">
+        <MappingFragment StoreEntitySet="mx_Formular">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Object_Ref" ColumnName="Object_Ref" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_Object">
+      <EntityTypeMapping TypeName="MixingModel.mx_Object">
+        <MappingFragment StoreEntitySet="mx_Object">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_Setting">
+      <EntityTypeMapping TypeName="MixingModel.mx_Setting">
+        <MappingFragment StoreEntitySet="mx_Setting">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_Substance">
+      <EntityTypeMapping TypeName="MixingModel.mx_Substance">
+        <MappingFragment StoreEntitySet="mx_Substance">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="SubstanceGroup_Ref" ColumnName="SubstanceGroup_Ref" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="AdUrl" ColumnName="AdUrl" />
+          <ScalarProperty Name="InfoNote" ColumnName="InfoNote" />
+          <ScalarProperty Name="WarningNote" ColumnName="WarningNote" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_SubstanceDetail">
+      <EntityTypeMapping TypeName="MixingModel.mx_SubstanceDetail">
+        <MappingFragment StoreEntitySet="mx_SubstanceDetail">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Substance_Ref" ColumnName="Substance_Ref" />
+          <ScalarProperty Name="Element_Ref" ColumnName="Element_Ref" />
+          <ScalarProperty Name="Object_Ref" ColumnName="Object_Ref" />
+          <ScalarProperty Name="NutritiveValue" ColumnName="NutritiveValue" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="IsObjectDependence" ColumnName="IsObjectDependence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_SubstanceGroup">
+      <EntityTypeMapping TypeName="MixingModel.mx_SubstanceGroup">
+        <MappingFragment StoreEntitySet="mx_SubstanceGroup">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_SubstanceUsedDefault">
+      <EntityTypeMapping TypeName="MixingModel.mx_SubstanceUsedDefault">
+        <MappingFragment StoreEntitySet="mx_SubstanceUsedDefault">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Object_Ref" ColumnName="Object_Ref" />
+          <ScalarProperty Name="Substance_Ref" ColumnName="Substance_Ref" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_WebEmbedded">
+      <EntityTypeMapping TypeName="MixingModel.mx_WebEmbedded">
+        <MappingFragment StoreEntitySet="mx_WebEmbedded">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DomainName" ColumnName="DomainName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="LimitDate" ColumnName="LimitDate" />
+          <ScalarProperty Name="CountCalculator" ColumnName="CountCalculator" />
+          <ScalarProperty Name="LimitCalculator" ColumnName="LimitCalculator" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="MixingModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="MixingModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="MixingModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="MixingModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="MixingModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MixingModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="MixingModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MixingModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MixingModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MixingModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="mx_Element">
+      <EntityTypeMapping TypeName="MixingModel.mx_Element">
+        <MappingFragment StoreEntitySet="mx_Element">
+          <ScalarProperty Name="WarningNote" ColumnName="WarningNote" />
+          <ScalarProperty Name="InfoNote" ColumnName="InfoNote" />
+          <ScalarProperty Name="AdUrl" ColumnName="AdUrl" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ElementGroup_Ref" ColumnName="ElementGroup_Ref" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mx_FormularDetail">
+      <EntityTypeMapping TypeName="MixingModel.mx_FormularDetail">
+        <MappingFragment StoreEntitySet="mx_FormularDetail">
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+          <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+          <ScalarProperty Name="TargetValue" ColumnName="TargetValue" />
+          <ScalarProperty Name="Element_Ref" ColumnName="Element_Ref" />
+          <ScalarProperty Name="Formular_Ref" ColumnName="Formular_Ref" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

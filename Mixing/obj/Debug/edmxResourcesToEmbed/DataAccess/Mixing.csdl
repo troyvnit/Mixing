@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MixingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="mx_ElementGroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="mx_Element" Relationship="MixingModel.FK_mx_Element_mx_ElementGroup" FromRole="mx_ElementGroup" ToRole="mx_Element" />
+  </EntityType>
+  <EntityType Name="mx_Formular">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Object_Ref" Type="Int32" />
+    <NavigationProperty Name="mx_Object" Relationship="Self.mx_Formular_fk_Object_Ref" FromRole="mx_Formular" ToRole="mx_Object" />
+    <NavigationProperty Name="mx_FormularDetail" Relationship="MixingModel.FK_mx_FormularDetail_mx_Formular" FromRole="mx_Formular" ToRole="mx_FormularDetail" />
+  </EntityType>
+  <EntityType Name="mx_Object">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="mx_Formular" Relationship="Self.mx_Formular_fk_Object_Ref" FromRole="mx_Object" ToRole="mx_Formular" />
+  </EntityType>
+  <EntityType Name="mx_Setting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Key" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="mx_Substance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SubstanceGroup_Ref" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AdUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="InfoNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WarningNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="mx_SubstanceGroup" Relationship="MixingModel.FK_mx_Substance_mx_SubstanceGroup" FromRole="mx_Substance" ToRole="mx_SubstanceGroup" />
+    <NavigationProperty Name="mx_SubstanceDetail" Relationship="MixingModel.FK_mx_SubstanceDetail_mx_Substance" FromRole="mx_Substance" ToRole="mx_SubstanceDetail" />
+    <NavigationProperty Name="mx_SubstanceUsedDefault" Relationship="MixingModel.FK_mx_SubstanceUsedDefault_mx_Substance" FromRole="mx_Substance" ToRole="mx_SubstanceUsedDefault" />
+  </EntityType>
+  <EntityType Name="mx_SubstanceDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Substance_Ref" Type="Int32" />
+    <Property Name="Element_Ref" Type="Int32" />
+    <Property Name="Object_Ref" Type="Int32" />
+    <Property Name="NutritiveValue" Type="Double" />
+    <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IsObjectDependence" Type="Boolean" />
+    <NavigationProperty Name="mx_Substance" Relationship="MixingModel.FK_mx_SubstanceDetail_mx_Substance" FromRole="mx_SubstanceDetail" ToRole="mx_Substance" />
+    <NavigationProperty Name="mx_Element" Relationship="MixingModel.FK_mx_SubstanceDetail_mx_Element" FromRole="mx_SubstanceDetail" ToRole="mx_Element" />
+  </EntityType>
+  <EntityType Name="mx_SubstanceGroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="mx_Substance" Relationship="MixingModel.FK_mx_Substance_mx_SubstanceGroup" FromRole="mx_SubstanceGroup" ToRole="mx_Substance" />
+  </EntityType>
+  <EntityType Name="mx_SubstanceUsedDefault">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Object_Ref" Type="Int32" />
+    <Property Name="Substance_Ref" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="mx_Substance" Relationship="MixingModel.FK_mx_SubstanceUsedDefault_mx_Substance" FromRole="mx_SubstanceUsedDefault" ToRole="mx_Substance" />
+  </EntityType>
+  <EntityType Name="mx_WebEmbedded">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DomainName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="LimitDate" Type="DateTime" Precision="3" />
+    <Property Name="CountCalculator" Type="Int32" />
+    <Property Name="LimitCalculator" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <Association Name="mx_Formular_fk_Object_Ref">
+    <End Role="mx_Object" Type="Self.mx_Object" Multiplicity="0..1" />
+    <End Role="mx_Formular" Type="Self.mx_Formular" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_Object">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_Formular">
+        <PropertyRef Name="Object_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MixingEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="mx_ElementGroup" EntityType="Self.mx_ElementGroup" />
+    <EntitySet Name="mx_Formular" EntityType="Self.mx_Formular" />
+    <EntitySet Name="mx_Object" EntityType="Self.mx_Object" />
+    <EntitySet Name="mx_Setting" EntityType="Self.mx_Setting" />
+    <EntitySet Name="mx_Substance" EntityType="Self.mx_Substance" />
+    <EntitySet Name="mx_SubstanceDetail" EntityType="Self.mx_SubstanceDetail" />
+    <EntitySet Name="mx_SubstanceGroup" EntityType="Self.mx_SubstanceGroup" />
+    <EntitySet Name="mx_SubstanceUsedDefault" EntityType="Self.mx_SubstanceUsedDefault" />
+    <EntitySet Name="mx_WebEmbedded" EntityType="Self.mx_WebEmbedded" />
+    <AssociationSet Name="mx_Formular_fk_Object_Ref" Association="Self.mx_Formular_fk_Object_Ref">
+      <End Role="mx_Object" EntitySet="mx_Object" />
+      <End Role="mx_Formular" EntitySet="mx_Formular" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="MixingModel.sysdiagram" />
+    <AssociationSet Name="FK_mx_Substance_mx_SubstanceGroup" Association="MixingModel.FK_mx_Substance_mx_SubstanceGroup">
+      <End Role="mx_SubstanceGroup" EntitySet="mx_SubstanceGroup" />
+      <End Role="mx_Substance" EntitySet="mx_Substance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mx_SubstanceDetail_mx_Substance" Association="MixingModel.FK_mx_SubstanceDetail_mx_Substance">
+      <End Role="mx_Substance" EntitySet="mx_Substance" />
+      <End Role="mx_SubstanceDetail" EntitySet="mx_SubstanceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mx_SubstanceUsedDefault_mx_Substance" Association="MixingModel.FK_mx_SubstanceUsedDefault_mx_Substance">
+      <End Role="mx_Substance" EntitySet="mx_Substance" />
+      <End Role="mx_SubstanceUsedDefault" EntitySet="mx_SubstanceUsedDefault" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MixingModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MixingModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="mx_Element" EntityType="MixingModel.mx_Element" />
+    <AssociationSet Name="FK_mx_Element_mx_ElementGroup" Association="MixingModel.FK_mx_Element_mx_ElementGroup">
+      <End Role="mx_ElementGroup" EntitySet="mx_ElementGroup" />
+      <End Role="mx_Element" EntitySet="mx_Element" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mx_SubstanceDetail_mx_Element" Association="MixingModel.FK_mx_SubstanceDetail_mx_Element">
+      <End Role="mx_Element" EntitySet="mx_Element" />
+      <End Role="mx_SubstanceDetail" EntitySet="mx_SubstanceDetail" />
+    </AssociationSet>
+    <EntitySet Name="mx_FormularDetail" EntityType="MixingModel.mx_FormularDetail" />
+    <AssociationSet Name="FK_mx_FormularDetail_mx_Element" Association="MixingModel.FK_mx_FormularDetail_mx_Element">
+      <End Role="mx_Element" EntitySet="mx_Element" />
+      <End Role="mx_FormularDetail" EntitySet="mx_FormularDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mx_FormularDetail_mx_Formular" Association="MixingModel.FK_mx_FormularDetail_mx_Formular">
+      <End Role="mx_Formular" EntitySet="mx_Formular" />
+      <End Role="mx_FormularDetail" EntitySet="mx_FormularDetail" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_mx_Substance_mx_SubstanceGroup">
+    <End Type="MixingModel.mx_SubstanceGroup" Role="mx_SubstanceGroup" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_Substance" Role="mx_Substance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_SubstanceGroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_Substance">
+        <PropertyRef Name="SubstanceGroup_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mx_SubstanceDetail_mx_Substance">
+    <End Type="MixingModel.mx_Substance" Role="mx_Substance" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_SubstanceDetail" Role="mx_SubstanceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_Substance">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_SubstanceDetail">
+        <PropertyRef Name="Substance_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mx_SubstanceUsedDefault_mx_Substance">
+    <End Type="MixingModel.mx_Substance" Role="mx_Substance" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_SubstanceUsedDefault" Role="mx_SubstanceUsedDefault" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_Substance">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_SubstanceUsedDefault">
+        <PropertyRef Name="Substance_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="mx_Element">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ElementGroup_Ref" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AdUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="InfoNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WarningNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="mx_ElementGroup" Relationship="MixingModel.FK_mx_Element_mx_ElementGroup" FromRole="mx_Element" ToRole="mx_ElementGroup" />
+    <NavigationProperty Name="mx_SubstanceDetail" Relationship="MixingModel.FK_mx_SubstanceDetail_mx_Element" FromRole="mx_Element" ToRole="mx_SubstanceDetail" />
+    <NavigationProperty Name="mx_FormularDetail" Relationship="MixingModel.FK_mx_FormularDetail_mx_Element" FromRole="mx_Element" ToRole="mx_FormularDetail" />
+  </EntityType>
+  <Association Name="FK_mx_Element_mx_ElementGroup">
+    <End Type="MixingModel.mx_ElementGroup" Role="mx_ElementGroup" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_Element" Role="mx_Element" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_ElementGroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_Element">
+        <PropertyRef Name="ElementGroup_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mx_SubstanceDetail_mx_Element">
+    <End Type="MixingModel.mx_Element" Role="mx_Element" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_SubstanceDetail" Role="mx_SubstanceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_Element">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_SubstanceDetail">
+        <PropertyRef Name="Element_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="mx_FormularDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Formular_Ref" Type="Int32" />
+    <Property Name="Element_Ref" Type="Int32" />
+    <Property Name="TargetValue" Type="Int32" />
+    <Property Name="MinValue" Type="Int32" />
+    <Property Name="MaxValue" Type="Int32" />
+    <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="mx_Element" Relationship="MixingModel.FK_mx_FormularDetail_mx_Element" FromRole="mx_FormularDetail" ToRole="mx_Element" />
+    <NavigationProperty Name="mx_Formular" Relationship="MixingModel.FK_mx_FormularDetail_mx_Formular" FromRole="mx_FormularDetail" ToRole="mx_Formular" />
+  </EntityType>
+  <Association Name="FK_mx_FormularDetail_mx_Element">
+    <End Type="MixingModel.mx_Element" Role="mx_Element" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_FormularDetail" Role="mx_FormularDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_Element">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_FormularDetail">
+        <PropertyRef Name="Element_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mx_FormularDetail_mx_Formular">
+    <End Type="MixingModel.mx_Formular" Role="mx_Formular" Multiplicity="0..1" />
+    <End Type="MixingModel.mx_FormularDetail" Role="mx_FormularDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mx_Formular">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mx_FormularDetail">
+        <PropertyRef Name="Formular_Ref" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
