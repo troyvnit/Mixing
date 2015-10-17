@@ -30,5 +30,25 @@ Ext.define('Mixing.Application', {
 
         var elementStore = Ext.getStore('MxElement');
         elementStore.load();
+
+        var objectStore = Ext.getStore('mxObject');
+        objectStore.load(function (records) {
+            Ext.getCmp('object').setValue(records[0].get('ID'));
+            var substanceStore = Ext.getStore('mxSubstance');
+            substanceStore.load({
+                params: { getAll: false, objectId: records[0].get('ID') }
+            });
+            var formularStore = Ext.getStore('mxFormular');
+            formularStore.load({
+                params: { objectId: records[0].get('ID') },
+                callback: function (records) {
+                    Ext.getCmp('formular').setValue(records[0].get('ID'));
+                    var formularDetailStore = Ext.getStore('mxFormularDetail');
+                    formularDetailStore.load({
+                        params: { formularId: records[0].get('ID') }
+                    });
+                }
+            });
+        });
     }
 });

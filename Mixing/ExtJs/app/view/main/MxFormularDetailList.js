@@ -61,7 +61,7 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
                 }
             }, flex: 1
         },
-        { text: Mixing.util.Utilities.mxSetting.get('mxk-Target') + ' (ppm)', dataIndex: 'Target', editor: 'numberfield', flex: 1 },
+        { text: Mixing.util.Utilities.mxSetting.get('mxk-Target') + ' (ppm)', dataIndex: 'Target', editor: 'numberfield', minValue: 0, flex: 1 },
         { text: Mixing.util.Utilities.mxSetting.get('mxk-Result') + ' (ppm)', dataIndex: 'Result', flex: 1 },
         {
             xtype: 'actioncolumn',
@@ -103,6 +103,10 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
     },
 
     listeners: {
-        
+        afterrender(grid, eOpts ) {
+            grid.getView().on("itemadd", function () {
+                grid.editingPlugin.startEdit(0, 0);
+            });
+        }
     }
 });

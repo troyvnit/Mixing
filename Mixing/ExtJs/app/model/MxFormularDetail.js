@@ -4,7 +4,7 @@
     fields: [
         { name: 'ElementId', type: 'int' },
         { name: 'Element', type: 'string' },
-        { name: 'Target', type: 'int' },
-        { name: 'Result', type: 'int' }
+        { name: 'Target', type: 'float' },
+        { name: 'Result', type: 'float' }
     ]
 });

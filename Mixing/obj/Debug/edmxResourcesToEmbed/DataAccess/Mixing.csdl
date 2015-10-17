@@ -292,9 +292,9 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Formular_Ref" Type="Int32" />
     <Property Name="Element_Ref" Type="Int32" />
-    <Property Name="TargetValue" Type="Int32" />
-    <Property Name="MinValue" Type="Int32" />
-    <Property Name="MaxValue" Type="Int32" />
+    <Property Name="TargetValue" Type="Double" />
+    <Property Name="MinValue" Type="Double" />
+    <Property Name="MaxValue" Type="Double" />
     <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="mx_Element" Relationship="MixingModel.FK_mx_FormularDetail_mx_Element" FromRole="mx_FormularDetail" ToRole="mx_Element" />
     <NavigationProperty Name="mx_Formular" Relationship="MixingModel.FK_mx_FormularDetail_mx_Formular" FromRole="mx_FormularDetail" ToRole="mx_Formular" />

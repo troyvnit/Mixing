@@ -38,6 +38,7 @@ Ext.define('Mixing.view.main.Main', {
             {
                 title: 'Calculator',
                 id: 'calculatorTab',
+                scrollable: true,
                 padding: 20,
                 items: [
                     {
@@ -113,6 +114,7 @@ Ext.define('Mixing.view.main.Main', {
                                 xtype: 'numberfield',
                                 id: 'volume',
                                 fieldLabel: 'Volume (Lit)',
+                                value: 100,
                                 flex: 16
                             },
                             {
@@ -162,6 +164,8 @@ Ext.define('Mixing.view.main.Main', {
                                             Ext.getCmp('totalCost').setValue(result.TotalCost);
 
                                             Ext.getCmp('mainTabPanel').setActiveTab('resultTab');
+
+                                            Ext.Msg.alert('Success', result.Message);
                                         }
                                     });
                                 },
@@ -174,6 +178,7 @@ Ext.define('Mixing.view.main.Main', {
             {
                 title: 'Result',
                 id: 'resultTab',
+                scrollable: true,
                 padding: 20,
                 items: [
                     {
@@ -182,8 +187,7 @@ Ext.define('Mixing.view.main.Main', {
                         items: [
                             {
                                 xtype: 'mx_substance_result',
-                                scrollable: true,
-                                height: 400,
+                                minHeight: 400,
                                 flex: 1
                             }
                         ]
@@ -195,8 +199,7 @@ Ext.define('Mixing.view.main.Main', {
                         items: [
                             {
                                 xtype: 'mx_formularDetail_result',
-                                scrollable: true,
-                                height: 400,
+                                minHeight: 400,
                                 flex: 16
                             },
                             {

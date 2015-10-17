@@ -17,9 +17,9 @@ namespace Mixing.DataAccess
         public int ID { get; set; }
         public Nullable<int> Formular_Ref { get; set; }
         public Nullable<int> Element_Ref { get; set; }
-        public Nullable<int> TargetValue { get; set; }
-        public Nullable<int> MinValue { get; set; }
-        public Nullable<int> MaxValue { get; set; }
+        public Nullable<double> TargetValue { get; set; }
+        public Nullable<double> MinValue { get; set; }
+        public Nullable<double> MaxValue { get; set; }
         public string Unit { get; set; }
     
         public virtual mx_Element mx_Element { get; set; }

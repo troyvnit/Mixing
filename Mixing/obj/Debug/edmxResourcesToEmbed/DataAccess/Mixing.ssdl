@@ -37,9 +37,9 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Formular_Ref" Type="int" />
     <Property Name="Element_Ref" Type="int" />
-    <Property Name="TargetValue" Type="int" />
-    <Property Name="MinValue" Type="int" />
-    <Property Name="MaxValue" Type="int" />
+    <Property Name="TargetValue" Type="float" />
+    <Property Name="MinValue" Type="float" />
+    <Property Name="MaxValue" Type="float" />
     <Property Name="Unit" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="mx_Object">

@@ -12,7 +12,9 @@ Ext.define('Mixing.view.main.MainController', {
 
     createNewFormularDetail: function () {
         var formularDetailStore = Ext.getStore('mxFormularDetail');
-        formularDetailStore.insert(0, Ext.create('Mixing.model.MxFormularDetail'));
+        if (formularDetailStore.findExact('ElementId', 0) == -1) {
+            formularDetailStore.insert(0, Ext.create('Mixing.model.MxFormularDetail'));
+        }
     },
 
     addRemoveSubstance: function () {

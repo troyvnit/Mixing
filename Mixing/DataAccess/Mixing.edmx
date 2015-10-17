@@ -42,9 +42,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Formular_Ref" Type="int" />
           <Property Name="Element_Ref" Type="int" />
-          <Property Name="TargetValue" Type="int" />
-          <Property Name="MinValue" Type="int" />
-          <Property Name="MaxValue" Type="int" />
+          <Property Name="TargetValue" Type="float" />
+          <Property Name="MinValue" Type="float" />
+          <Property Name="MaxValue" Type="float" />
           <Property Name="Unit" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="mx_Object">
@@ -598,9 +598,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Formular_Ref" Type="Int32" />
           <Property Name="Element_Ref" Type="Int32" />
-          <Property Name="TargetValue" Type="Int32" />
-          <Property Name="MinValue" Type="Int32" />
-          <Property Name="MaxValue" Type="Int32" />
+          <Property Name="TargetValue" Type="Double" />
+          <Property Name="MinValue" Type="Double" />
+          <Property Name="MaxValue" Type="Double" />
           <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="mx_Element" Relationship="MixingModel.FK_mx_FormularDetail_mx_Element" FromRole="mx_FormularDetail" ToRole="mx_Element" />
           <NavigationProperty Name="mx_Formular" Relationship="MixingModel.FK_mx_FormularDetail_mx_Formular" FromRole="mx_FormularDetail" ToRole="mx_Formular" />

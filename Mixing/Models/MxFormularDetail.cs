@@ -5,8 +5,8 @@
         public int ID { get; set; }
         public int ElementId { get; set; }
         public string Element { get; set; }
-        public int Target { get; set; }
-        public int Result { get; set; }
-        public int PercentError { get; set; }
+        public double Target { get; set; }
+        public double Result { get; set; }
+        public double PercentError { get; set; }
     }
 }
