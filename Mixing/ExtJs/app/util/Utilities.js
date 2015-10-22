@@ -4,7 +4,7 @@
     constructor: function () {
         var _self = this;
         Ext.Ajax.request({
-            url: 'http://localhost:10387/api/mxsetting',
+            url: 'http://api.tinhocnongnghiep.com/api/mxsetting',
             async: false,
             success: function (response, opts) {
                 var settings = Ext.decode(response.responseText);

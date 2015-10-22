@@ -9,7 +9,7 @@ Ext.define('Mixing.store.MxFormularDetail', {
 
     proxy: {
         type: 'ajax',
-        url: 'http://localhost:10387/api/mxformular/getdetail',
+        url: 'http://api.tinhocnongnghiep.com/api/mxformular/getdetail',
         reader: {
             type: 'json'
         }

@@ -9,7 +9,7 @@
 
     proxy: {
         type: 'ajax',
-        url: 'http://localhost:10387/api/mxformular/getbyobject',
+        url: 'http://api.tinhocnongnghiep.com/api/mxformular/getbyobject',
         reader: {
             type: 'json'
         }

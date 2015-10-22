@@ -9,7 +9,7 @@
 
     proxy: {
         type: 'ajax',
-        url: 'http://localhost:10387/api/mxsubstancedetail',
+        url: 'http://api.tinhocnongnghiep.com/api/mxsubstancedetail',
         reader: {
             type: 'json'
         }

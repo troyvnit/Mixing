@@ -137,7 +137,7 @@ Ext.define('Mixing.view.main.Main', {
                                     });
 
                                     Ext.Ajax.request({
-                                        url: 'http://localhost:10387/api/calculate',
+                                        url: 'http://api.tinhocnongnghiep.com/api/calculate',
                                         method: 'POST',
                                         jsonData: {
                                             Volume: Ext.getCmp('volume').value,

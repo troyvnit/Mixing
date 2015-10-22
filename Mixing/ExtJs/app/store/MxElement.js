@@ -9,7 +9,7 @@
 
     proxy: {
         type: 'ajax',
-        url: 'http://localhost:10387/api/mxelement',
+        url: 'http://api.tinhocnongnghiep.com/api/mxelement',
         reader: {
             type: 'json'
         }
