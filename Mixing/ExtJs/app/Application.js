@@ -45,7 +45,12 @@ Ext.define('Mixing.Application', {
                     Ext.getCmp('formular').setValue(records[0].get('ID'));
                     var formularDetailStore = Ext.getStore('mxFormularDetail');
                     formularDetailStore.load({
-                        params: { formularId: records[0].get('ID') }
+                        params: { formularId: records[0].get('ID') },
+                        callback: function () {
+                            var body = document.getElementsByTagName('body')[0];
+                            var xMask = document.getElementById('xMask');
+                            body.removeChild(xMask);
+                        }
                     });
                 }
             });
