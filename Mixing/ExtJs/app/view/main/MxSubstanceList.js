@@ -63,6 +63,7 @@ Ext.define('Mixing.view.main.MxSubstanceList', {
                                     items: [
                                         {
                                             xtype: 'gridpanel',
+                                            id: 'editSubstancesGrid',
                                             multiSelect: true,
                                             title: substance.get('Name'),
                                             store: elementStore,
@@ -87,7 +88,7 @@ Ext.define('Mixing.view.main.MxSubstanceList', {
                                                 items: [
                                                     {
                                                         xtype: 'button',
-                                                        text: 'Cancel',
+                                                        text: 'Clear Changes',
                                                         handler: function (button) {
                                                             button.up('gridpanel').getStore().rejectChanges();
                                                         }

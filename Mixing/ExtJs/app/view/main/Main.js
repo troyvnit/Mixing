@@ -54,7 +54,14 @@ Ext.define('Mixing.view.main.Main', {
                             select: function (combo, record, eOpts) {
                                 var formularStore = Ext.getStore('mxFormular');
                                 formularStore.load({
-                                    params: { objectId: record.get('ID') }
+                                    params: { objectId: record.get('ID') },
+                                    callback: function (records) {
+                                        Ext.getCmp('formular').setValue(records[0].get('ID'));
+                                        var formularDetailStore = Ext.getStore('mxFormularDetail');
+                                        formularDetailStore.load({
+                                            params: { formularId: records[0].get('ID') }
+                                        });
+                                    }
                                 });
 
                                 var substanceStore = Ext.getStore('mxSubstance');
@@ -92,7 +99,7 @@ Ext.define('Mixing.view.main.Main', {
                         items: [
                             {
                                 xtype: 'mx_formularDetail_list',
-                                minHeight: 500,
+                                height: 400,
                                 flex: 16
                             },
                             {
@@ -100,7 +107,7 @@ Ext.define('Mixing.view.main.Main', {
                             },
                             {
                                 xtype: 'mx_substance_list',
-                                minHeight: 500,
+                                height: 400,
                                 flex: 8
                             }
                         ]
@@ -187,7 +194,7 @@ Ext.define('Mixing.view.main.Main', {
                         items: [
                             {
                                 xtype: 'mx_substance_result',
-                                minHeight: 400,
+                                height: 250,
                                 flex: 1
                             }
                         ]
@@ -199,7 +206,7 @@ Ext.define('Mixing.view.main.Main', {
                         items: [
                             {
                                 xtype: 'mx_formularDetail_result',
-                                minHeight: 400,
+                                height: 250,
                                 flex: 16
                             },
                             {
@@ -227,6 +234,160 @@ Ext.define('Mixing.view.main.Main', {
                                                 fieldLabel: 'Total Cost = ',
                                                 readOnly: true,
                                                 width: '100%'
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                text: 'Nutrient Ratio Analysis',
+                                                width: '100%',
+                                                margin: '10px 0 0 0',
+                                                handler: function () {
+                                                    var mxFormularDetailResultStore = Ext.getStore('mxFormularDetailResult');
+                                                    var nutrientRatioAnalysisStore = Ext.create('Ext.data.Store', {
+                                                        fields: [
+                                                            { name: 'ElementUsed', type: 'string' },
+                                                            { name: 'Ratio', type: 'string' }
+                                                        ]
+                                                    });
+                                                    var nutrientRatioAnalysisPopup = Ext.create('Ext.window.Window', {
+                                                        layout: 'fit',
+                                                        width: 600,
+                                                        height: 400,
+                                                        padding: 10,
+                                                        scrollable: true,
+                                                        title: 'Nutrient Ratio Analysis',
+                                                        modal: true,
+                                                        items: [
+                                                            {
+                                                                xtype: 'panel',
+                                                                layout: 'vbox',
+                                                                height: 500,
+                                                                items: [
+                                                                    {
+                                                                        xtype: 'panel',
+                                                                        layout: 'hbox',
+                                                                        width: '100%',
+                                                                        margin: '0 0 20px 0',
+                                                                        items: [
+                                                                            {
+                                                                                xtype: 'gridpanel',
+                                                                                multiSelect: true,
+                                                                                title: 'Nutrient Ratio Analysis Result',
+                                                                                store: nutrientRatioAnalysisStore,
+                                                                                columns: [
+                                                                                    { text: 'Element Used', dataIndex: 'ElementUsed', flex: 1 },
+                                                                                    { text: 'Ratio', dataIndex: 'Ratio', flex: 1 },
+                                                                                ],
+                                                                                height: 250,
+                                                                                scrollable: true,
+                                                                                flex: 1,
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        xtype: 'panel',
+                                                                        layout: 'hbox',
+                                                                        width: '100%',
+                                                                        items: [
+                                                                            {
+                                                                                xtype: 'combobox',
+                                                                                emptyText: 'Select Element',
+                                                                                id: 'element1',
+                                                                                store: mxFormularDetailResultStore,
+                                                                                displayField: 'Element',
+                                                                                valueField: 'Result',
+                                                                                queryMode: 'local',
+                                                                                flex: 1
+                                                                            },
+                                                                            {
+                                                                                xtype: 'combobox',
+                                                                                emptyText: 'Select Element',
+                                                                                id: 'element2',
+                                                                                store: mxFormularDetailResultStore,
+                                                                                displayField: 'Element',
+                                                                                valueField: 'Result',
+                                                                                queryMode: 'local',
+                                                                                flex: 1,
+                                                                                margin: '0 5px 0 5px'
+                                                                            },
+                                                                            {
+                                                                                xtype: 'combobox',
+                                                                                emptyText: 'Select Element',
+                                                                                id: 'element3',
+                                                                                store: mxFormularDetailResultStore,
+                                                                                displayField: 'Element',
+                                                                                valueField: 'Result',
+                                                                                queryMode: 'local',
+                                                                                flex: 1
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        xtype: 'panel',
+                                                                        layout: 'hbox',
+                                                                        width: '100%',
+                                                                        margin: '20px 0 0 0',
+                                                                        items: [
+                                                                            {
+                                                                                xtype: 'button',
+                                                                                text: 'Add Custom Ratio',
+                                                                                flex: 16,
+                                                                                handler: function () {
+                                                                                    var element1 = Ext.getCmp('element1');
+                                                                                    var element2 = Ext.getCmp('element2');
+                                                                                    var element3 = Ext.getCmp('element3');
+                                                                                    var elements = [];
+                                                                                    var values = [];
+
+                                                                                    if (element1.value) {
+                                                                                        elements.push(element1.rawValue);
+                                                                                        values.push(element1.value);
+                                                                                    }
+                                                                                    if (element2.value) {
+                                                                                        elements.push(element2.rawValue);
+                                                                                        values.push(element2.value);
+                                                                                    }
+                                                                                    if (element3.value) {
+                                                                                        elements.push(element3.rawValue);
+                                                                                        values.push(element3.value);
+                                                                                    }
+
+                                                                                    if (values.length == 0) {
+                                                                                        Ext.Msg.alert('No value', 'Please select elements to get ratio!');
+                                                                                        return;
+                                                                                    }
+
+                                                                                    var min = values[0];
+                                                                                    for (var i = 0; i < values.length; i++) {
+                                                                                        min = values[i] < min ? values[i] : min;
+                                                                                    }
+
+                                                                                    for (var i = 0; i < values.length; i++) {
+                                                                                        values[i] = parseFloat(values[i] / min).toFixed(2).replace('.00', '');
+                                                                                    }
+
+                                                                                    nutrientRatioAnalysisStore.add({
+                                                                                        ElementUsed: elements.join(' : '),
+                                                                                        Ratio: values.join(' : ')
+                                                                                    });
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                flex: 1
+                                                                            },
+                                                                            {
+                                                                                xtype: 'button',
+                                                                                text: 'Close',
+                                                                                flex: 16
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    });
+
+                                                    nutrientRatioAnalysisPopup.show();
+                                                }
                                             }
                                         ]
                                     }

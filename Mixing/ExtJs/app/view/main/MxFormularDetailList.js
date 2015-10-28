@@ -19,7 +19,7 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
 
     columns: [
         {
-            text: Mixing.util.Utilities.mxSetting.get('mxk-Element'), dataIndex: 'Element', allowBlank: false,
+            text: Mixing.util.Utilities.mxSetting.get('mxk-Element'), dataIndex: 'Element', allowBlank: false, align: 'right',
             editor: {
                 xtype: 'combobox',
                 queryMode: 'local',
@@ -61,8 +61,14 @@ Ext.define('Mixing.view.main.MxFormularDetailList', {
                 }
             }, flex: 1
         },
-        { text: Mixing.util.Utilities.mxSetting.get('mxk-Target') + ' (ppm)', dataIndex: 'Target', editor: 'numberfield', minValue: 0, flex: 1 },
-        { text: Mixing.util.Utilities.mxSetting.get('mxk-Result') + ' (ppm)', dataIndex: 'Result', flex: 1 },
+        {
+            text: Mixing.util.Utilities.mxSetting.get('mxk-Target') + ' (ppm)', dataIndex: 'Target', editor: 'numberfield', minValue: 0, flex: 1,
+            renderer: function (value, metaData) {
+                
+                return '<input type="number" style="width: 100%" value="' + value + '" />';
+            }
+        },
+        { text: Mixing.util.Utilities.mxSetting.get('mxk-Result') + ' (ppm)', dataIndex: 'Result', flex: 1, align: 'center' },
         {
             xtype: 'actioncolumn',
             items: [
