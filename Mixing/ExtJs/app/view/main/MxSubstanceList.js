@@ -90,7 +90,12 @@ Ext.define('Mixing.view.main.MxSubstanceList', {
                                                         xtype: 'button',
                                                         text: 'Clear Changes',
                                                         handler: function (button) {
-                                                            button.up('gridpanel').getStore().rejectChanges();
+                                                            var dirtyRecords = button.up('gridpanel').getStore().findBy(function (record) {
+                                                                return record.dirty;
+                                                            });
+                                                            if (dirtyRecords > -1) {
+                                                                button.up('gridpanel').getStore().rejectChanges();
+                                                            }
                                                         }
                                                     }
                                                 ]

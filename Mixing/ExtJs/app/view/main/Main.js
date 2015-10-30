@@ -377,7 +377,10 @@ Ext.define('Mixing.view.main.Main', {
                                                                             {
                                                                                 xtype: 'button',
                                                                                 text: 'Close',
-                                                                                flex: 16
+                                                                                flex: 16,
+                                                                                handler: function () {
+                                                                                    nutrientRatioAnalysisPopup.close();
+                                                                                }
                                                                             }
                                                                         ]
                                                                     }

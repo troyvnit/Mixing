@@ -122,7 +122,7 @@ namespace Mixing.Controllers
             rs.EC = 2.3f;
             rs.TotalCost = 12345;
 
-            rs.DomainName = Request.RequestUri.Host;
+            rs.DomainName = Request.Headers.Referrer.Host;
             rs.Message = "Here demo for: refDomainName = " + rs.DomainName + "; objectID = " + rq.ObjectId + "; formularID = " + rq.FormularId + "; volume = " + rs.Volume;
 
             return rs;
